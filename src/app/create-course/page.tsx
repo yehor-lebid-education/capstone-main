@@ -5,11 +5,16 @@ import Container from "@/components/layout/container";
 import StartQuiz from "@/components/modules/start-quiz/start-quiz";
 import LoadingCard from "@/components/ui/custom/loading-card";
 import { LOADING_STEPS, START_QUESTIONS } from "@/data/start-questions";
+import { Course } from "@/generated/prisma";
 import { QuestionAnswer } from "@/types/quiz";
+import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from "sonner";
 
 export default function Page() {
+    const router = useRouter();
+    const { getToken } = useAuth();
     const [loading, setLoading] = useState(false);
 
     async function onQuizComplete(answers: QuestionAnswer[]) {
@@ -18,15 +23,23 @@ export default function Page() {
         setLoading(true);
 
         try {
+            const token = await getToken();
             const response = await fetch("/api/generate/course", {
                 method: "POST",
-                headers: { "Content-Type": "application/json" },
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
                 body: JSON.stringify({ answers }),
             });
 
-            const data = await response.json();
+            const { data } = await response.json() as { data: Course };
+
             console.log(data);
+
             toast.success("Course generated successfully!");
+
+            router.push(`/courses/${data.id}`);
         } catch (error) {
             toast.error("Failed to generate course. Please try again.");
             setLoading(false);

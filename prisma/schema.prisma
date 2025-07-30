@@ -6,16 +6,115 @@
 
 generator client {
   provider = "prisma-client-js"
-  output   = "../generated/prisma"
+  output   = "../src/generated/prisma"
+}
+
+generator json {
+  provider = "prisma-json-types-generator"
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("DATABASE_URL")
-  directUrl = env("DATABASE_DIRECT_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
-model User {
+// model User {
+//   // Main fields
+//   id        String   @id @default(cuid())
+//   clerkId   String   @unique
+//   email     String?  @unique
+//   fullName  String?
+//   // Meta
+//   createdAt DateTime @default(now())
+//   updatedAt DateTime @updatedAt
+//   // Relations
+//   courses        Course[]
+//   lessonsContent LessonContent[]
+// }
 
+model Course {
+  // Main fields
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  startDate   DateTime
+  endDate     DateTime
+  // Meta
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  // Relations
+  userId      String
+  /// [CourseSectionsType]
+  sections    Json
 }
 
+model LessonContent {
+  id       String   @id @default(cuid())
+  // Lesson content
+  content  String
+  // Lesson quiz
+  question String
+  options  String[]
+  answer   String
+  // References
+  userId   String
+}
+
+// Relational option.
+// model Course {
+//   // Main fields
+//   id          String   @id @default(cuid())
+//   title       String
+//   description String
+//   startDate   DateTime
+//   endDate     DateTime
+//   // Meta
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt
+//   // Relations
+//   userId      String
+//   user        User     @relation(fields: [userId], references: [id])
+//   sections    Section[]
+// }
+
+// model LessonQuiz {
+//   id          String   @id @default(cuid())
+//   question    String
+//   options     String[]
+//   answer      String
+
+//   lessonId   String
+//   lesson     Lesson   @relation(fields: [lessonId], references: [id])
+// }
+// model Section {
+//   // Main fields
+//   id          String   @id @default(cuid())
+//   title       String
+//   description String
+//   startDate   DateTime
+//   endDate     DateTime
+//   // Meta
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt
+//   // Relations
+//   courseId    String
+//   course      Course   @relation(fields: [courseId], references: [id])
+//   lessons     Lesson[]
+// }
+
+// model Lesson {
+//   // Main fields
+//   id          String   @id @default(cuid())
+//   title       String
+//   description String
+//   date        DateTime
+//   content     String
+
+//   // Meta
+//   createdAt   DateTime @default(now())
+//   updatedAt   DateTime @updatedAt
+//   // Relations
+//   sectionId   String
+//   section     Section  @relation(fields: [sectionId], references: [id])
+//   quizzes     LessonQuiz[]
+// }

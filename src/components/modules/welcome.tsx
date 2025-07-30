@@ -17,7 +17,7 @@ export default function Welcome() {
     return (
         <div className="relative flex flex-col items-center justify-center w-full h-full">
             <AnimatedBackground />
-            <div className="relative z-10 flex flex-col items-center justify-center w-full max-w-7xl px-4">
+            <div className="relative z-10 flex flex-col items-center justify-center w-full">
                 <Row>
                     <IntroHero />
                 </Row>

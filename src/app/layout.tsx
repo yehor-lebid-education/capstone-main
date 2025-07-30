@@ -30,17 +30,19 @@ export default function RootLayout({
     return (
         <ClerkProvider afterSignOutUrl="/">
             {/* <SidebarProvider> */}
-                <html lang="en">
-                    <body className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen h-screen`}>
-                        <header>
-                            <Navbar />
-                        </header>
-                        <main className="w-full h-[calc(100%-60px)]">
-                            <Toaster />
+            <html lang="en">
+                <body className={`${geistSans.variable} ${geistMono.variable} antialiased w-screen h-screen`}>
+                    <header>
+                        <Navbar />
+                    </header>
+                    <main className="w-full h-[calc(100%-60px)]">
+                        <Toaster />
+                        <div className="max-w-7xl px-4 mx-auto min-w-full min-h-full">
                             {children}
-                        </main>
-                    </body>
-                </html>
+                        </div>
+                    </main>
+                </body>
+            </html>
             {/* </SidebarProvider> */}
         </ClerkProvider >
     );

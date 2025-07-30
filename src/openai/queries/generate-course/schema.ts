@@ -1,12 +1,14 @@
 import { z } from 'zod';
 
 export const GeneratedLessonSchema = z.object({
+    id: z.string().optional(),
     title: z.string(),
     description: z.string(),
     date: z.string().datetime(),
 });
 
 export const GeneratedSectionSchema = z.object({
+    id: z.string().optional(),
     title: z.string(),
     description: z.string(),
     lessons: z.array(GeneratedLessonSchema),
@@ -15,6 +17,7 @@ export const GeneratedSectionSchema = z.object({
 });
 
 export const GeneratedCourseSchema = z.object({
+    id: z.string().optional(),
     title: z.string(),
     description: z.string(),
     sections: z.array(GeneratedSectionSchema),
@@ -27,7 +30,7 @@ export type GeneratedSection = z.infer<typeof GeneratedSectionSchema>;
 export type GeneratedCourse = z.infer<typeof GeneratedCourseSchema>;
 
 export const jsonSchemaString = (
-`
+    `
 {
   "title": "string",                  // Course title, e.g. "React Beginner to Intermediate Study Plan"
   "description": "string",            // Course description, e.g. "A practical plan to learn React for the workplace."
