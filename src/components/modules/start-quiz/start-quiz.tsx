@@ -9,7 +9,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Question, QuestionAnswer } from "@/types/quiz";
 import { Progress } from "@/components/ui/progress";
-import { ArrowLeft, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { TypographyH3 } from "@/components/ui/custom/typography-h3";
 
 interface StartQuizProps {
@@ -86,8 +86,8 @@ export default function StartQuiz({ questions, onComplete }: StartQuizProps) {
                     >
                         {currentQuestion.answers.map((answer, i) => (
                             <div key={i} className="flex items-center space-x-2">
-                                <RadioGroupItem value={answer} id={`option-${i}`} />
-                                <Label htmlFor={`option-${i}`} className="cursor-pointer">
+                                <RadioGroupItem value={answer} id={`option-${answer}`} />
+                                <Label htmlFor={`option-${answer}`} className="cursor-pointer">
                                     {answer}
                                 </Label>
                             </div>
@@ -104,6 +104,7 @@ export default function StartQuiz({ questions, onComplete }: StartQuizProps) {
                     {currentQuestion.answers.map((answer, i) => (
                         <div key={i} className="flex items-center space-x-2">
                             <Checkbox
+                                id={`option-${answer}`}
                                 checked={(currentAnswer as string[]).includes(answer)}
                                 onCheckedChange={(checked) => {
                                     const current = currentAnswer as string[];
@@ -114,7 +115,7 @@ export default function StartQuiz({ questions, onComplete }: StartQuizProps) {
                                     );
                                 }}
                             />
-                            <Label className="cursor-pointer">{answer}</Label>
+                            <Label htmlFor={`option-${answer}`} className="cursor-pointer">{answer}</Label>
                         </div>
                     ))}
                 </div>
@@ -132,6 +133,7 @@ export default function StartQuiz({ questions, onComplete }: StartQuizProps) {
                 <Progress value={progress} className="w-full" />
             </div>
 
+            {/* Card */}
             <Card>
                 <CardHeader>
                     <CardTitle>
