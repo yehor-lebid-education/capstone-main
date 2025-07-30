@@ -2,7 +2,7 @@ import OpenAI from "openai";
 
 const {
     OPENAI_API_KEY,
-    OPENAI_TIMEOUT = 10000,
+    OPENAI_TIMEOUT = 100_000,
     OPENAI_MAX_RETRIES = 3,
 } = process.env;
 

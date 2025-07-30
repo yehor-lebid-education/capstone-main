@@ -45,7 +45,7 @@ export default function IntroHero() {
       aria-live="polite"
       aria-atomic="true"
     >
-      <span className="font-bold mr-4 mb-2">Your personalized <span className="whitespace-nowrap">path to</span></span>{" "}
+      <span className="font-bold mr-4">Your personalized <span className="whitespace-nowrap">path to</span></span>{" "}
       <span className="italic font-black inline-block relative h-[1.2em] w-[9ch] overflow-hidden align-bottom">
         <div
           className="transition-transform duration-700 ease-in-out"

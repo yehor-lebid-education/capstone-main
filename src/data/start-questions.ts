@@ -2,13 +2,14 @@ import { Question } from "@/types/quiz";
 
 export const LOADING_STEPS: string[] = [
     "Processing your quiz responses...",
-    "Analyzing your learning style...",
-    "Researching skill requirements...",
-    "Building course outline...",
-    "Creating personalized lessons...",
-    "Adding practice exercises...",
-    "Finalizing your course!"
-];
+    "Analyzing your learning objectives and experience...",
+    "Identifying key areas for personalized growth...",
+    "Outlining your structured learning path...",
+    "Designing lessons and study sessions...",
+    "Scheduling topics to match your availability...",
+    "Curating recommended resources...",
+    "Finalizing your course. It may take a few seconds...",
+].map((step, i, arr) => `${i + 1} of ${arr.length}: ${step}`);
 
 export const START_QUESTIONS = [
     {

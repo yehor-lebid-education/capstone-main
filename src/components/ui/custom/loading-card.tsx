@@ -1,8 +1,8 @@
 import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
-import { Card, CardContent } from "../card";
+import { Card, CardContent, CardHeader, CardTitle } from "../card";
 
-export default function LoadingCard({ steps }: { steps: string[] }) {
+export default function LoadingCard({ title = '', steps }: { title?: string; steps: string[] }) {
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
 
     useEffect(() => {
@@ -19,7 +19,7 @@ export default function LoadingCard({ steps }: { steps: string[] }) {
                 }
                 return prevIndex;
             });
-        }, 2000); // Change every 1 second
+        }, 4000); // Change every 1 second
 
         return () => clearInterval(interval);
     }, [steps.length]);
@@ -29,6 +29,11 @@ export default function LoadingCard({ steps }: { steps: string[] }) {
     return (
         <div className="w-full max-w-2xl">
             <Card>
+                <CardHeader>
+                    <CardTitle className="text-center">
+                        {title}
+                    </CardTitle>
+                </CardHeader>
                 <CardContent className="flex flex-col items-center justify-center space-y-8 py-8">
                     <Loader2 className="h-8 w-8 animate-spin text-primary" />
                     <p className="text-center">{currentStep}</p>
