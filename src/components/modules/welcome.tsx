@@ -3,8 +3,17 @@
 import AnimatedBackground from "@/components/common/animated-background";
 import IntroHero from "@/components/common/hero";
 import Row from "@/components/layout/row";
+import { Button } from "@/components/ui/button";
+import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, SignInButton } from "@clerk/clerk-react";
+import { useRouter } from "next/navigation";
 
 export default function Welcome() {
+    const router = useRouter();
+
+    function handleGetStarted() {
+        router.push('/create-course');
+    }
+
     return (
         <div className="relative flex flex-col items-center justify-center w-full h-full">
             <AnimatedBackground />
@@ -18,7 +27,19 @@ export default function Welcome() {
                     </p>
                 </Row>
                 <Row className="flex justify-start">
-
+                    <ClerkLoading>
+                        <Button size="extra" disabled>Get Started</Button>
+                    </ClerkLoading>
+                    <ClerkLoaded>
+                        <SignedOut>
+                            <SignInButton mode="modal">
+                                <Button size="extra">Get Started</Button>
+                            </SignInButton>
+                        </SignedOut>
+                        <SignedIn>
+                            <Button size="extra" onClick={handleGetStarted}>Get Started</Button>
+                        </SignedIn>
+                    </ClerkLoaded>
                 </Row>
             </div>
         </div>
