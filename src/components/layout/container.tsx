@@ -9,13 +9,12 @@ type Variant = keyof typeof variantMap;
 
 export default function Container({
     children,
+    className,
     variant = 'full',
-}: {
-    children?: React.ReactNode,
-    variant?: Variant,
-}) {
+    ...props
+}: React.ComponentProps<"h1"> & { variant?: Variant }) {
     return (
-        <div className={cn(variantMap[variant])}>
+        <div {...props} className={cn(variantMap[variant], className)}>
             {children}
         </div>
     );
