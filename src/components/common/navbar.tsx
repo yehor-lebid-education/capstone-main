@@ -11,7 +11,7 @@ export default function Navbar() {
         <nav className="w-full h-[60px]">
             <div className="max-w-7xl h-full mx-auto flex items-center justify-between py-2 px-4">
                 {/* Logo/Brand */}
-                <Link href="/" className="font-bold text-xl text-primary tracking-tight">
+                <Link href="/" className="font-bold text-xl text-primary tracking-tight cursor-pointer">
                     EduMentor
                 </Link>
 

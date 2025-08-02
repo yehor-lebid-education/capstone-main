@@ -35,9 +35,9 @@ export default function RootLayout({
                     <header>
                         <Navbar />
                     </header>
-                    <main className="w-full h-[calc(100%-60px)]">
+                    <main className="w-full h-full">
                         <Toaster />
-                        <div className="max-w-7xl px-4 mx-auto min-w-full min-h-full">
+                        <div className="max-w-7xl h-full px-4 pt-[60px] mt-[-60px] mx-auto">
                             {children}
                         </div>
                     </main>

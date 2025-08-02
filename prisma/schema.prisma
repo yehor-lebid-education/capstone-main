@@ -18,6 +18,43 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Course {
+  // Main fields
+  id             String   @id @default(cuid())
+  title          String
+  description    String
+  startDate      DateTime
+  endDate        DateTime
+  // Meta
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  // Relations
+  userId         String
+  lessons        Lesson[]
+  /// [CourseSectionsType]
+  sections       Json
+}
+
+model Lesson {
+  id           String   @id @default(cuid())
+  // Lesson content
+  content      String
+  completed    Boolean  @default(false)
+  // References
+  userId       String
+  courseId     String
+  course       Course   @relation(fields: [courseId], references: [id])
+  /// [LessonQuizType]
+  quiz         Json
+}
+
+
+
+
+
+
+
+
 // model User {
 //   // Main fields
 //   id        String   @id @default(cuid())
@@ -31,34 +68,6 @@ datasource db {
 //   courses        Course[]
 //   lessonsContent LessonContent[]
 // }
-
-model Course {
-  // Main fields
-  id          String   @id @default(cuid())
-  title       String
-  description String
-  startDate   DateTime
-  endDate     DateTime
-  // Meta
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  // Relations
-  userId      String
-  /// [CourseSectionsType]
-  sections    Json
-}
-
-model LessonContent {
-  id       String   @id @default(cuid())
-  // Lesson content
-  content  String
-  // Lesson quiz
-  question String
-  options  String[]
-  answer   String
-  // References
-  userId   String
-}
 
 // Relational option.
 // model Course {

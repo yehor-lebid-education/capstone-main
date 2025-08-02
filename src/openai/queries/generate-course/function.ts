@@ -4,9 +4,7 @@ import { GeneratedCourse, GeneratedCourseSchema } from './schema';
 import { zodTextFormat } from 'openai/helpers/zod.mjs';
 import { sanitizeInput } from '@/openai/security';
 
-export default async function generateCourse(
-    quizAnswers: string,
-) {
+export default async function generateCourse(quizAnswers: string) {
     try {
         const { sanitized } = sanitizeInput(quizAnswers, { strictMode: true });
 

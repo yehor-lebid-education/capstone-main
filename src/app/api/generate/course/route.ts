@@ -16,9 +16,12 @@ export async function POST(req: NextRequest) {
         if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
         // Validation
-        const parsed = await parseRequestBody(req);
-        if (!parsed.success) {
-            return NextResponse.json({ error: "Invalid request body" }, { status: 400 });
+        const parsedBody = await parseRequestBody(req);
+        if (!parsedBody.success) {
+            return NextResponse.json({
+                message: "Invalid request body",
+                error: parsedBody.error,
+            }, { status: 400 });
         }
 
         // TODO: Uncomment later when the function is ready
@@ -29,7 +32,7 @@ export async function POST(req: NextRequest) {
         const result = await saveCourseToDb(course, userId);
         console.log(result);
 
-        return NextResponse.json({ data: result }, { status: 200 });
+        return NextResponse.json({ data: result.id }, { status: 200 });
     } catch (error) {
         console.error("Error processing request:", error);
         return NextResponse.json(

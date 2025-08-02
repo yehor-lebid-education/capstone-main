@@ -8,39 +8,23 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Calendar, Clock, BookOpen, CheckCircle2 } from "lucide-react";
-import { Course } from "@/generated/prisma";
+import { Calendar, Clock, BookOpen } from "lucide-react";
+import Container from "@/components/layout/container";
+import { CourseData } from "@/app/actions/course-actions";
+import { formatDate } from "@/lib/formatters";
+import SectionDetailsRow from "./section-details-row";
 
-export default function CourseDetails({ course }: { course: Course }) {
+export default function CourseDetails({ course }: { course: CourseData }) {
     // Calculate total lessons across all sections
     const totalLessons = course.sections.reduce((acc, section) => acc + section.lessons.length, 0);
 
-    // Format dates for display
-    const formatDate = (date: Date | string) => {
-        if (typeof date === 'string') {
-            date = new Date(date);
-        }
+    const isLessonGenerated = (lesson: CourseData['sections'][number]['lessons'][number]) => {
+        return course.lessons.find(({ id }) => id === lesson.id);
+    }
 
-        return date.toLocaleDateString('en-US', {
-            month: 'short',
-            day: 'numeric',
-            year: 'numeric'
-        });
-    };
-
-    const formatDateTime = (date: Date | string) => {
-        if (typeof date === 'string') {
-            date = new Date(date);
-        }
-
-        return date.toLocaleDateString('en-US', {
-            weekday: 'short',
-            month: 'short',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit'
-        });
-    };
+    const isLessonCompleted = (lesson: CourseData['sections'][number]['lessons'][number]) => {
+        return course.lessons.find(({ id, completed }) => id === lesson.id && completed);
+    }
 
     // Calculate course duration
     const startDate = new Date(course.startDate);
@@ -48,7 +32,7 @@ export default function CourseDetails({ course }: { course: Course }) {
     const durationDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
 
     return (
-        <div className="w-full max-w-7xl mx-auto space-y-6 pb-15">
+        <Container className="w-full space-y-6 pb-15">
             {/* Course Header Card */}
             <Card className="border-0 shadow-lg">
                 <CardHeader className="pb-6">
@@ -117,49 +101,7 @@ export default function CourseDetails({ course }: { course: Course }) {
                                 </AccordionTrigger>
 
                                 <AccordionContent className="px-0 pb-0">
-                                    <div className="px-6 py-4 bg-muted/30">
-                                        <p className="text-muted-foreground mb-4">{section.description}</p>
-
-                                        {/* Lessons Table */}
-                                        <div className="bg-background rounded-lg border overflow-hidden">
-                                            <div className="grid grid-cols-12 gap-4 p-4 border-b bg-muted/50 font-medium text-sm">
-                                                <div className="col-span-4">Lesson</div>
-                                                <div className="col-span-5">Description</div>
-                                                <div className="col-span-2">Date & Time</div>
-                                                <div className="col-span-1 text-center">Status</div>
-                                            </div>
-
-                                            {section.lessons.map((lesson, lessonIndex) => (
-                                                <div key={lesson.title} className="grid grid-cols-12 gap-4 p-4 border-b last:border-b-0 hover:bg-muted/20 transition-colors">
-                                                    <div className="col-span-4">
-                                                        <h4 className="font-medium text-sm">{lesson.title}</h4>
-                                                    </div>
-                                                    <div className="col-span-5">
-                                                        <p className="text-sm text-muted-foreground">{lesson.description}</p>
-                                                    </div>
-                                                    <div className="col-span-2">
-                                                        <p className="text-xs text-muted-foreground">{formatDateTime(lesson.date)}</p>
-                                                    </div>
-                                                    <div className="col-span-1 flex justify-center">
-                                                        <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
-                                                    </div>
-                                                </div>
-                                            ))}
-
-                                            {/* Section Footer */}
-                                            <div className="grid grid-cols-12 gap-4 p-4 bg-muted/30 border-t">
-                                                <div className="col-span-8">
-                                                    <p className="text-sm font-medium">Section Progress</p>
-                                                </div>
-                                                <div className="col-span-4">
-                                                    <div className="flex items-center gap-2">
-                                                        <Progress value={0} className="flex-1" />
-                                                        <span className="text-xs text-muted-foreground">0%</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <SectionDetailsRow course={course} section={section} />
                                 </AccordionContent>
                             </AccordionItem>
                         ))}
@@ -182,6 +124,6 @@ export default function CourseDetails({ course }: { course: Course }) {
                     </p>
                 </CardContent>
             </Card>
-        </div>
+        </Container>
     );
 }

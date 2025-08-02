@@ -33,13 +33,10 @@ export default function Page() {
                 body: JSON.stringify({ answers }),
             });
 
-            const { data } = await response.json() as { data: Course };
-
-            console.log(data);
+            const { id } = await response.json() as { id: string };
 
             toast.success("Course generated successfully!");
-
-            router.push(`/courses/${data.id}`);
+            router.push(`/courses/${id}`);
         } catch (error) {
             toast.error("Failed to generate course. Please try again.");
             setLoading(false);

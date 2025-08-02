@@ -1,16 +1,15 @@
 import { findOneByIdAndUserId } from "@/app/actions/course-actions";
-import CourseBlock from "@/components/modules/course/course-block";
 import CourseDetails from "@/components/modules/course/course-details";
 import { auth } from "@clerk/nextjs/server";
 import { notFound, redirect } from "next/navigation";
 
-export default async function Page({ params }: { params: Promise<{ id: string }> }) {
+export default async function Page({ params }: { params: Promise<{ courseId: string }> }) {
     const { userId } = await auth();
     if (!userId) redirect('/');
 
-    const { id } = await params;
+    const { courseId } = await params;
 
-    const course = await findOneByIdAndUserId(id, userId);
+    const course = await findOneByIdAndUserId(courseId, userId);
     if (!course) notFound();
 
     console.log(course);

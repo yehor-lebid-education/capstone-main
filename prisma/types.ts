@@ -13,6 +13,14 @@ declare global {
                 date: Date | string;
             }[];
         }[];
+
+        export type LessonQuizType = {
+            id: string;
+            question: string;
+            options: string[];
+            userAnswerIdx: number;
+            correctAnswerIdx: number;
+        }[];
     }
 }
 
