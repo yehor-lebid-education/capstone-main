@@ -1,14 +1,12 @@
 import { z } from 'zod';
 
 export const GeneratedLessonSchema = z.object({
-    id: z.string().optional(),
     title: z.string(),
     description: z.string(),
     date: z.string().datetime(),
 });
 
 export const GeneratedSectionSchema = z.object({
-    id: z.string().optional(),
     title: z.string(),
     description: z.string(),
     lessons: z.array(GeneratedLessonSchema),
@@ -17,7 +15,6 @@ export const GeneratedSectionSchema = z.object({
 });
 
 export const GeneratedCourseSchema = z.object({
-    id: z.string().optional(),
     title: z.string(),
     description: z.string(),
     sections: z.array(GeneratedSectionSchema),

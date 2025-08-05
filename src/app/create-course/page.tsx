@@ -33,10 +33,14 @@ export default function Page() {
                 body: JSON.stringify({ answers }),
             });
 
-            const { id } = await response.json() as { id: string };
+            const data = await response.json() as { id: string } | { error: string };
 
-            toast.success("Course generated successfully!");
-            router.push(`/courses/${id}`);
+            if ('id' in data) {
+                toast.success("Course generated successfully!");
+                router.push(`/courses/${data.id}`);
+            } else {
+                throw new Error(data.error);
+            }
         } catch (error) {
             toast.error("Failed to generate course. Please try again.");
             setLoading(false);
@@ -44,7 +48,7 @@ export default function Page() {
     }
 
     return (
-        <Container>
+        <Container variant="full">
             <AnimatedBackground />
             <Container variant="full-centered">
                 {

@@ -6,10 +6,12 @@ import Link from "next/link";
 
 export default function SectionDetailsRow({
     course,
-    section
+    section,
+    disabled,
 }: {
     course: CourseData,
     section: CourseData['sections'][number],
+    disabled: boolean
 }) {
     const lessons = section.lessons.map((lesson) => {
         const generatedLesson = course.lessons.find(({ id }) => lesson.id === id);
@@ -20,7 +22,7 @@ export default function SectionDetailsRow({
         return { ...lesson, isGenerated, isCompleted };
     });
 
-    const isDisabled = (idx: number) => idx !== 0 && !lessons[idx - 1].isCompleted;
+    const isDisabled = (idx: number) => disabled || (idx !== 0 && !lessons[idx - 1].isCompleted);
     const completedLessons = lessons.reduce((completed, lesson) => completed += lesson.isCompleted ? 1 : 0, 0);
     const progressInPercent = Math.ceil((completedLessons * 100) / lessons.length);
 
@@ -76,7 +78,7 @@ export default function SectionDetailsRow({
                     <div className="col-span-4">
                         <div className="flex items-center gap-2">
                             <Progress value={0} className="flex-1" />
-                            <span className="text-xs text-muted-foreground">${progressInPercent}%</span>
+                            <span className="text-xs text-muted-foreground">{progressInPercent}%</span>
                         </div>
                     </div>
                 </div>

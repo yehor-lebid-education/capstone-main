@@ -17,19 +17,30 @@ import SectionDetailsRow from "./section-details-row";
 export default function CourseDetails({ course }: { course: CourseData }) {
     // Calculate total lessons across all sections
     const totalLessons = course.sections.reduce((acc, section) => acc + section.lessons.length, 0);
-
-    const isLessonGenerated = (lesson: CourseData['sections'][number]['lessons'][number]) => {
-        return course.lessons.find(({ id }) => id === lesson.id);
-    }
-
-    const isLessonCompleted = (lesson: CourseData['sections'][number]['lessons'][number]) => {
-        return course.lessons.find(({ id, completed }) => id === lesson.id && completed);
-    }
+    const lessonsCompleted = course.lessons.reduce((acc, { completed }) => acc += completed ? 1 : 0, 0);
+    const completedPercent = Math.ceil((lessonsCompleted * 100) / totalLessons);
 
     // Calculate course duration
     const startDate = new Date(course.startDate);
     const endDate = new Date(course.endDate);
     const durationDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
+
+    // Calculate section availability
+    const lessonCompletedMap = course.lessons.reduce((map, { id, completed }) => {
+        map[id] = completed;
+        return map;
+    }, {} as Record<string, boolean>);
+
+    const sectionDisabledMap = course.sections.reduce((map, section, idx) => {
+        if (idx === 0) {
+            map[section.id] = false;
+        } else {
+            const prevSection = course.sections[idx - 1];
+            const prevSectionLessonCompleted = prevSection.lessons.every(({ id }) => lessonCompletedMap[id]);
+            map[section.id] = !prevSectionLessonCompleted;
+        }
+        return map;
+    }, {} as Record<string, boolean>);
 
     return (
         <Container className="w-full space-y-6 pb-15">
@@ -101,7 +112,7 @@ export default function CourseDetails({ course }: { course: CourseData }) {
                                 </AccordionTrigger>
 
                                 <AccordionContent className="px-0 pb-0">
-                                    <SectionDetailsRow course={course} section={section} />
+                                    <SectionDetailsRow course={course} section={section} disabled={sectionDisabledMap[section.id]} />
                                 </AccordionContent>
                             </AccordionItem>
                         ))}
@@ -116,11 +127,11 @@ export default function CourseDetails({ course }: { course: CourseData }) {
                 </CardHeader>
                 <CardContent>
                     <div className="flex items-center gap-4">
-                        <Progress value={0} className="flex-1" />
-                        <span className="text-sm font-medium">0% Complete</span>
+                        <Progress value={completedPercent} className="flex-1" />
+                        <span className="text-sm font-medium">{completedPercent}% Complete</span>
                     </div>
                     <p className="text-sm text-muted-foreground mt-2">
-                        0 of {totalLessons} lessons completed
+                        {lessonsCompleted} of {totalLessons} lessons completed
                     </p>
                 </CardContent>
             </Card>

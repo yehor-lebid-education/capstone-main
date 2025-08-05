@@ -85,7 +85,7 @@ export function CourseCard({ course }: { course: Course }) {
                 <Button asChild className="w-full">
                     <Link href={`/courses/${course.id}`}>
                         <BookOpen className="mr-2 h-4 w-4" />
-                        Go to course
+                        Continue Learning
                     </Link>
                 </Button>
             </CardFooter>

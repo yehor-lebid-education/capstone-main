@@ -42,10 +42,11 @@ export async function POST(req: NextRequest) {
 
         // Generate lesson and save to db
         const generatedLesson = await generateLesson(JSON.stringify(lessonGenerationContext));
+        console.log({ generation_result: generatedLesson });
         const lessonModel = _generatedLessonToLessonModel(lessonId, userId, courseId, generatedLesson);
+        
         const result = await _createLesson(lessonModel);
-
-        console.log(result);
+        console.log({ db_result: result });
 
         // Return response to client
         return NextResponse.json({ id: result.id }, { status: 200 });

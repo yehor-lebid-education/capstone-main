@@ -32,8 +32,10 @@ export default function LessonStatus({
     const [isGenerating, setIsGenerating] = useState(false);
 
     async function handleGenerate() {
+        if (isGenerating || disabled) return;
+
         setIsGenerating(true);
-        toast.success("Lesson generation started...");
+        toast.message("Lesson generation started...");
 
         try {
             const token = await getToken();
@@ -62,12 +64,14 @@ export default function LessonStatus({
     }
 
     return (
-        <Button
-            variant="default"
-            disabled={disabled || isGenerating}
-            onClick={() => handleGenerate()}
-        >
-            {isGenerating ? <Loader2 className="animate-spin" /> : "Generate"}
-        </Button>
+        <div title={disabled ? "Complete previous lessons to unlock" : "Generate lesson"}>
+            <Button
+                variant="default"
+                onClick={() => handleGenerate()}
+                disabled={disabled || isGenerating}
+            >
+                {isGenerating ? <Loader2 className="animate-spin" /> : "Generate"}
+            </Button>
+        </div>
     )
 }

@@ -2,7 +2,6 @@ import { z } from "zod";
 import { v4 as uuidV4 } from 'uuid';
 import { NextRequest, NextResponse } from "next/server";
 import generateCourse from "@/openai/queries/generate-course/function";
-import { generatedCourseExample1 } from "@/specs/data";
 import { GeneratedCourse } from "@/openai/queries/generate-course/schema";
 import prisma from "@/db/prisma-client";
 import { auth } from "@clerk/nextjs/server";
@@ -24,15 +23,13 @@ export async function POST(req: NextRequest) {
             }, { status: 400 });
         }
 
-        // TODO: Uncomment later when the function is ready
-        // const educationalPlan = await generateCourse(JSON.stringify(parsed.data));        
-        await delay(5000); // Simulate processing delay
-        const course = generatedCourseExample1 as GeneratedCourse;
+        const course = await generateCourse(JSON.stringify(parsedBody.data));
+        console.log({ generation_result: course });
 
         const result = await saveCourseToDb(course, userId);
-        console.log(result);
+        console.log({ db_result: result });
 
-        return NextResponse.json({ data: result.id }, { status: 200 });
+        return NextResponse.json({ id: result.id }, { status: 200 });
     } catch (error) {
         console.error("Error processing request:", error);
         return NextResponse.json(
@@ -44,6 +41,9 @@ export async function POST(req: NextRequest) {
 
 async function saveCourseToDb(course: GeneratedCourse, userId: string) {
     return prisma.course.create({
+        select: {
+            id: true,
+        },
         data: {
             id: uuidV4(),
             title: course.title,

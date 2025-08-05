@@ -18,7 +18,7 @@ export default function LessonContent({
         try {
             toast.message('Saving answers');
             await submitLessonAnswers(lesson.id, userId, answers);
-            toast.message('Answers saved');
+            toast.success('Answers saved successfully!');
         } catch (error) {
             console.error(error);
             toast.error('Failed to save answers');
