@@ -8,8 +8,6 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { CheckCircle, XCircle } from "lucide-react";
 import { TypographyH3 } from "@/components/ui/custom/typography-h3";
 import { Lesson } from "@/generated/prisma";
-import { submitLessonAnswers } from "@/app/actions/lesson-actions";
-import { toast } from "sonner";
 
 // Updated to match your actual type
 export type LessonQuizType = {

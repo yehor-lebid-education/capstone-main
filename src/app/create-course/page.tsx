@@ -5,7 +5,6 @@ import Container from "@/components/layout/container";
 import StartQuiz from "@/components/modules/start-quiz/start-quiz";
 import LoadingCard from "@/components/ui/custom/loading-card";
 import { LOADING_STEPS, START_QUESTIONS } from "@/data/start-questions";
-import { Course } from "@/generated/prisma";
 import { QuestionAnswer } from "@/types/quiz";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
@@ -42,6 +41,7 @@ export default function Page() {
                 throw new Error(data.error);
             }
         } catch (error) {
+            console.error(error);
             toast.error("Failed to generate course. Please try again.");
             setLoading(false);
         }

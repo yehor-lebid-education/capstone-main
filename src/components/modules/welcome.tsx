@@ -19,7 +19,7 @@ export default function Welcome() {
                 </Row>
                 <Row className="mb-6">
                     <p className="text-base sm:text-lg md:text-xl text-gray-500 max-w-2xl mt-4">
-                        Answer a few quick questions — we'll instantly generate a structured course based on your experience, goals, and available time.
+                        Answer a few quick questions — we&apos;ll instantly generate a structured course based on your experience, goals, and available time.
                     </p>
                 </Row>
                 <Row className="flex justify-start">

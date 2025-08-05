@@ -2,7 +2,6 @@
 
 import prisma from "@/db/prisma-client";
 import { Lesson } from "@/generated/prisma";
-import { useAuth } from "@clerk/nextjs";
 
 export async function findOneByIdAndUserId(id: string, userId: string) {
     return prisma.lesson.findFirst({ where: { id, userId }});

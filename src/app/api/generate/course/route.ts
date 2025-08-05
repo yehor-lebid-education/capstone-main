@@ -6,8 +6,6 @@ import { GeneratedCourse } from "@/openai/queries/generate-course/schema";
 import prisma from "@/db/prisma-client";
 import { auth } from "@clerk/nextjs/server";
 
-const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms));
-
 export async function POST(req: NextRequest) {
     try {
         // Auth

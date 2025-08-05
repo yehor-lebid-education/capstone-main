@@ -4,8 +4,6 @@ import "./globals.css";
 import { Toaster } from "sonner";
 import { ClerkProvider } from "@clerk/nextjs";
 import Navbar from "@/components/common/navbar";
-import AppSidebar from "@/components/common/app-sidebar";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 
 const geistSans = Geist({
     variable: "--font-geist-sans",

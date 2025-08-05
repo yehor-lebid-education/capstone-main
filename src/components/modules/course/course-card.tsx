@@ -2,7 +2,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, BookOpen, Calendar, Users } from "lucide-react";
+import { Clock, BookOpen, Calendar } from "lucide-react";
 import Link from "next/link";
 import { Course } from "@/generated/prisma";
 

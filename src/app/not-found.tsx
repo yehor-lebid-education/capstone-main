@@ -13,7 +13,7 @@ export default function NotFound() {
                     <div className="text-6xl mb-4 animate-pulse">🔍</div>
 
                     <div className="space-y-3">
-                        <TypographyH1>This page doesn't exist.</TypographyH1>
+                        <TypographyH1>This page doesn&apos;t exist.</TypographyH1>
 
                         <ClerkLoading>
                             <div className="animate-pulse text-muted-foreground">Loading...</div>
@@ -22,13 +22,13 @@ export default function NotFound() {
                         <ClerkLoaded>
                             <SignedIn>
                                 <p className="text-lg text-muted-foreground">
-                                    Let's get you back to your learning.
+                                    Let&apos;s get you back to your learning.
                                 </p>
                             </SignedIn>
 
                             <SignedOut>
                                 <p className="text-lg text-muted-foreground">
-                                    Let's get you back to the main page.
+                                    Let&apos;s get you back to the main page.
                                 </p>
                             </SignedOut>
                         </ClerkLoaded>

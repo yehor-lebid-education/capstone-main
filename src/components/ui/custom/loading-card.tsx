@@ -22,7 +22,7 @@ export default function LoadingCard({ title = '', steps }: { title?: string; ste
         }, 4000); // Change every 1 second
 
         return () => clearInterval(interval);
-    }, [steps.length]);
+    }, [steps.length, currentStepIndex]);
 
     const currentStep = steps[currentStepIndex] || "Processing...";
 

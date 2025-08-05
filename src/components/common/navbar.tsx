@@ -3,9 +3,8 @@
 
 import Link from "next/link";
 import { ClerkLoaded, ClerkLoading, SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import { Button } from "@/components/ui/button"; // shadcn UI button
-import { Skeleton } from "@/components/ui/skeleton"; // shadcn UI button
-import { Loader2 } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Navbar() {
     return (

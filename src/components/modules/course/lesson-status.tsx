@@ -19,6 +19,10 @@ export default function LessonStatus({
     lesson: CourseLessonDetailsWithMeta,
     disabled: boolean
 }) {
+    const router = useRouter();
+    const { getToken } = useAuth();
+    const [isGenerating, setIsGenerating] = useState(false);
+
     if (lesson.isGenerated) {
         return (
             lesson.isCompleted
@@ -26,10 +30,6 @@ export default function LessonStatus({
                 : (<CheckCircle2 className="h-4 w-4 text-muted-foreground" />)
         )
     }
-
-    const router = useRouter();
-    const { getToken } = useAuth();
-    const [isGenerating, setIsGenerating] = useState(false);
 
     async function handleGenerate() {
         if (isGenerating || disabled) return;
@@ -57,6 +57,7 @@ export default function LessonStatus({
             toast.success("Lesson generated successfully!");
             router.push(`/courses/${courseId}/lessons/${id}`);
         } catch (error) {
+            console.error(error);
             toast.error("Failed to generate course. Please try again.");
         } finally {
             setIsGenerating(false);

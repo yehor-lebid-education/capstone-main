@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import { findManyByUserId } from "../actions/course-actions";
 import Container from "@/components/layout/container";
 import { CourseCard } from "@/components/modules/course/course-card";
-import { TypographyH2 } from "@/components/ui/custom/typography-h2";
 import Row from "@/components/layout/row";
 import TypographySectionTitle from "@/components/ui/custom/typography-section-title";
 import Link from "next/link";

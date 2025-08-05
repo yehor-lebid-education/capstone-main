@@ -1,7 +1,7 @@
 import remarkGfm from "remark-gfm";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
-import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism'
+import { oneLight } from 'react-syntax-highlighter/dist/esm/styles/prism';
 import { Card, CardContent } from "@/components/ui/card";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
@@ -119,8 +119,9 @@ export function Markdown({ content, className = "", maxHeight }: MarkdownViewerP
                             {children}
                         </del>
                     ),
-                    code({ className, children, ...props }) {
-                        const { ref, key, node, ...safeProps } = props;
+                    code(props) {
+                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                        const { ref, key, node, className, children, style, ...safeProps } = props;
                         const match = /language-(\w+)/.exec(className || '');
                         const inline = 'inline' in props && props.inline;
                         const language = match?.[1] || '';
@@ -132,7 +133,7 @@ export function Markdown({ content, className = "", maxHeight }: MarkdownViewerP
                                 </div>
                                 <SyntaxHighlighter
                                     language={language}
-                                    style={oneLight as any}
+                                    style={oneLight}
                                     PreTag="div"
                                     customStyle={{
                                         margin: 0,
