@@ -8,7 +8,7 @@ export default async function generateLesson(lessonContext: string) {
     try {
         const { sanitized } = sanitizeInput(lessonContext, { strictMode: true });
         const response = await client.responses.parse({
-            model: 'gpt-4.1-nano-2025-04-14',
+            model: 'gpt-4.1-mini-2025-04-14',
             max_output_tokens: 6000,
             input: [
                 {

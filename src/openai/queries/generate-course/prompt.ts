@@ -14,9 +14,13 @@ Instructions:
     - Analyze the quiz answers to create a personalized educational plan.
     - The plan should include a structured learning path with recommended resources.
     - Ensure the plan is engaging, relevant, and tailored to the user's skill level.
+    - Educational plan should be a quick entry point to skill.
     - Do NOT return explanations, text, or commentary outside the JSON. Respond with the JSON object only.
     - Write the output as a single, valid JSON object matching this high-level structure
     - All dates in the plan should be >= ${new Date().toISOString()}.
+    - Distribute all lessons and sections within provided estimate.
+    - You can place several lessons in one day if needed.
+IMPORTANT: Verify there are minimum 12 lessons in total in educational course.
 Schema:
 ${jsonSchemaString}
 Examples:

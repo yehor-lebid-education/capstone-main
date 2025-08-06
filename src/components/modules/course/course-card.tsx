@@ -2,7 +2,7 @@
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Clock, BookOpen, Calendar } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import Link from "next/link";
 import { Course } from "@/generated/prisma";
 
@@ -10,20 +10,6 @@ import { Course } from "@/generated/prisma";
 export function CourseCard({ course }: { course: Course }) {
     // Calculate total lessons across all sections
     const totalLessons = course.sections.reduce((acc, section) => acc + section.lessons.length, 0);
-
-    // Calculate course duration in days
-    const startDate = new Date(course.startDate);
-    const endDate = new Date(course.endDate);
-    const durationDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
-
-    // Format dates for display
-    const formatDate = (dateString: Date) => {
-        return dateString.toLocaleDateString('en-US', {
-            month: 'short',
-            day: 'numeric',
-            year: 'numeric'
-        });
-    };
 
     return (
         <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-300 h-fit">
@@ -50,16 +36,6 @@ export function CourseCard({ course }: { course: Course }) {
                             <span>{totalLessons} lessons</span>
                         </div>
 
-                        <div className="flex items-center gap-1">
-                            <Clock className="h-4 w-4" />
-                            <span>{durationDays} days</span>
-                        </div>
-                    </div>
-
-                    {/* Course Duration */}
-                    <div className="flex items-center gap-1 text-sm text-muted-foreground">
-                        <Calendar className="h-4 w-4" />
-                        <span>{formatDate(course.startDate)} - {formatDate(course.endDate)}</span>
                     </div>
 
                     {/* Section Preview */}

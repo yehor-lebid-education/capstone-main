@@ -59,7 +59,6 @@ export default function LessonStatus({
         } catch (error) {
             console.error(error);
             toast.error("Failed to generate course. Please try again.");
-        } finally {
             setIsGenerating(false);
         }
     }

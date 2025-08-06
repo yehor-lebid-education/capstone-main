@@ -9,7 +9,7 @@ export default async function generateCourse(quizAnswers: string) {
         const { sanitized } = sanitizeInput(quizAnswers, { strictMode: true });
 
         const response = await client.responses.parse({
-            model: 'gpt-4.1-nano-2025-04-14',
+            model: 'gpt-4.1-mini-2025-04-14',
             max_output_tokens: 1000,
             input: [
                 {

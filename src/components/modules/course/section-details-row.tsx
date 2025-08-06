@@ -1,6 +1,5 @@
 import { Progress } from "@radix-ui/react-progress";
 import LessonStatus from "./lesson-status";
-import { formatDateTime } from "@/lib/formatters";
 import { CourseData } from "@/app/actions/course-actions";
 import Link from "next/link";
 
@@ -35,8 +34,7 @@ export default function SectionDetailsRow({
             <div className="bg-background rounded-lg border overflow-hidden">
                 <div className="grid grid-cols-12 gap-4 p-4 border-b bg-muted/50 font-medium text-sm">
                     <div className="col-span-4">Lesson</div>
-                    <div className="col-span-5">Description</div>
-                    <div className="col-span-2">Date & Time</div>
+                    <div className="col-span-7">Description</div>
                     <div className="col-span-1 text-center">Status</div>
                 </div>
 
@@ -53,18 +51,15 @@ export default function SectionDetailsRow({
                                     : (<h4 className="font-medium text-sm">{lesson.title}</h4>)
                             }
                         </div>
-                        <div className="col-span-5">
+                        <div className="col-span-7">
                             <p className="text-sm text-muted-foreground">{lesson.description}</p>
-                        </div>
-                        <div className="col-span-2">
-                            <p className="text-xs text-muted-foreground">{formatDateTime(lesson.date)}</p>
                         </div>
                         <div className="col-span-1 flex justify-center">
                             <LessonStatus
                                 lesson={lesson}
                                 courseId={course.id}
                                 sectionId={section.id}
-                                disabled={isDisabled(idx)}
+                                disabled={false}
                             />
                         </div>
                     </div>

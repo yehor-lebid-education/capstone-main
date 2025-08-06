@@ -120,8 +120,10 @@ export function Markdown({ content, className = "", maxHeight }: MarkdownViewerP
                         </del>
                     ),
                     code(props) {
-                        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-                        const { ref, key, node, className, children, style, ...safeProps } = props;
+                        /* eslint-disable @typescript-eslint/no-unused-vars */
+                        const { ref, node, className, children, style, ...safeProps } = props;
+                        /* eslint-enable @typescript-eslint/no-unused-vars */
+
                         const match = /language-(\w+)/.exec(className || '');
                         const inline = 'inline' in props && props.inline;
                         const language = match?.[1] || '';

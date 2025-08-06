@@ -8,10 +8,9 @@ import {
     AccordionItem,
     AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Calendar, Clock, BookOpen } from "lucide-react";
+import { BookOpen } from "lucide-react";
 import Container from "@/components/layout/container";
 import { CourseData } from "@/app/actions/course-actions";
-import { formatDate } from "@/lib/formatters";
 import SectionDetailsRow from "./section-details-row";
 
 export default function CourseDetails({ course }: { course: CourseData }) {
@@ -19,11 +18,6 @@ export default function CourseDetails({ course }: { course: CourseData }) {
     const totalLessons = course.sections.reduce((acc, section) => acc + section.lessons.length, 0);
     const lessonsCompleted = course.lessons.reduce((acc, { completed }) => acc += completed ? 1 : 0, 0);
     const completedPercent = Math.ceil((lessonsCompleted * 100) / totalLessons);
-
-    // Calculate course duration
-    const startDate = new Date(course.startDate);
-    const endDate = new Date(course.endDate);
-    const durationDays = Math.ceil((endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24));
 
     // Calculate section availability
     const lessonCompletedMap = course.lessons.reduce((map, { id, completed }) => {
@@ -66,22 +60,6 @@ export default function CourseDetails({ course }: { course: CourseData }) {
                                 <p className="text-xs text-muted-foreground">Total content</p>
                             </div>
                         </div>
-
-                        <div className="flex items-center gap-3">
-                            <Clock className="h-5 w-5 text-primary" />
-                            <div>
-                                <p className="text-sm font-medium">{durationDays} Days</p>
-                                <p className="text-xs text-muted-foreground">Duration</p>
-                            </div>
-                        </div>
-
-                        <div className="flex items-center gap-3">
-                            <Calendar className="h-5 w-5 text-primary" />
-                            <div>
-                                <p className="text-sm font-medium">{formatDate(startDate)} - {formatDate(endDate)}</p>
-                                <p className="text-xs text-muted-foreground">Schedule</p>
-                            </div>
-                        </div>
                     </div>
                 </CardHeader>
             </Card>
@@ -101,9 +79,6 @@ export default function CourseDetails({ course }: { course: CourseData }) {
                                             <h3 className="font-semibold text-lg">
                                                 Section {sectionIndex + 1}: {section.title}
                                             </h3>
-                                            <p className="text-sm text-muted-foreground mt-1">
-                                                {section.lessons.length} lessons • {formatDate(new Date(section.startDate))} - {formatDate(new Date(section.endDate))}
-                                            </p>
                                         </div>
                                         <Badge variant="outline" className="ml-4">
                                             {section.lessons.length} lessons
